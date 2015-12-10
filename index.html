@@ -41,7 +41,7 @@
 	// add event handler for incomming message
 	ws.onmessage = function(evt){
 		var my_received_message = evt.data;
-		logf('received: ' + my_received_message);
+		logf('received: ' + rot13(my_received_message));
 	};
 
 	// add event handler for diconnection 
@@ -66,6 +66,30 @@
 		ws.send(input.value);
 		// erase input field
 		input.value = '';
+	}
+	
+	function rot13(str) { //source: https://rot47.net/rot13.html
+  	  var s = [];
+	  for (i = 0; i < str.length; i ++)
+  		{
+	    	idx = str.charCodeAt(i);
+    		if ((idx >= 48) && (idx <= 57))
+      		{
+      			if (idx <= 52)
+	      	{
+        		s[i] = String.fromCharCode(((idx + 13)));
+	      	}
+	      	else
+	      	{
+        		s[i] = String.fromCharCode(((idx - 13)));
+      		}
+	    	} 
+	    	else
+	    	{
+	      	s[i] = String.fromCharCode(idx);
+	    	}
+	  	}
+	  return s.join('');
 	}
 	//***************************
 	
